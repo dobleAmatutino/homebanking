@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Alkalami&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/style2.css">
+
+    <title>Cards</title>
+</head>
+
+<body>
+    <div id="app">
+        <header id="encabezadoLanding">
+            <img class="bankame animate__animated animate__bounce"  src="./img/zyro-image-removebg-preview.png" alt="">
+            
+            <a type="button" href="./ayuda.html" class="transaction btn btn-primary animate__animated animate__wobble">Ayuda <img
+                    class="icon animate__animated animate__bounce" src="./img/ayuda-removebg-preview.png" alt=""></a>
+            <a type="button" href="./prestamos.html" class="transaction btn btn-primary animate__animated animate__wobble">Nuestros
+                prestamos <img class="icon animate__animated animate__bounce" src="./img/prES-removebg-preview.png"
+                    alt=""></a>
+            <a type="button" href="./seguridad.html"
+                class="transaction btn btn-primary animate__animated animate__wobble">Seguridad<img
+                    class="icon animate__animated animate__bounce" src="./img/seguridad-removebg-preview.png"
+                    alt=""></a>
+            <a type="button" href="./cards.html" class="transaction btn btn-primary animate__animated animate__wobble">Tus
+                tarjetas<img class="icon animate__animated animate__bounce" src="./img/misTarjetas-removebg-preview.png"
+                    alt=""></a>
+        </header>
+        <main>
+            <div class="animate__animated animate__bounce">
+                <h1 class="saludo">MAKE A NEW TRANSACTION SINCE: {{dOriginAccount}}</h1>
+            </div>
+            <div class="modal-container">
+
+                <div id="contenedorDeDrops">
+                    <div class="dropdown d-flex justify-content-center flex-column">
+
+                        <div class="dropdown d-flex justify-content-center flex-column" >
+                            <h3 class="cardOption">Account destiny :</h3>
+                            <select v-model="destiny" class="transaction btn btn-secondary dropdown-toggle text-light">
+                                <option class="transaction" value="OWN">OWN</option>
+                                <option class="transaction" value="THIRD">THIRD</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="dropdown d-flex justify-content-center flex-column">
+                        <div class="dropdown d-flex justify-content-center flex-column">
+                            <h3 class="cardOption">Account to transfer :</h3>
+                            <select v-if="destiny=='OWN'" v-model="destinyAccount" class="transaction btn btn-secondary dropdown-toggle text-light">
+                                <option class="transaction "  v-for="cuenta in accounts" v-show="id!=cuenta.id" :value="cuenta.number">{{cuenta.number}} , {{cuenta.id}}</option>
+                            </select> 
+                            <input v-if="destiny=='THIRD'"  v-model="destinyAccount"  type="text" class="form-control" placeholder="Account number of the third:" aria-label="Username" aria-describedby="basic-addon1">
+                            
+                        </div>
+                    </div>
+                    <h3 class="cardOption">Amount :</h3>
+                    <div class="input-group mb-3">
+
+                        <span class="input-group-text">$</span>
+                        <input v-model="amount" type="number" class="transaction form-control bg-light" aria-label="Amount (to the nearest dollar)"
+                            placeholder="0.00" v-model="amount">
+                    </div>
+                    <div class="mb-3">
+                        <h3 class="cardOption">Description :</h3>
+                        <textarea v-model="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+
+                        <h3 class="cardOption">{{originAccountData.data.balance-amount}}</h3>
+                       
+                    </div>
+
+                </div>
+            </div>
+            <div class="buttonCreate">
+                <button @click="makeAtransaction" type="submit" class="transaction btn btn-primary animate__animated animate__wobble">
+                    Done
+                </button>
+            </div>
+            <a type="button" href="./accounts.html" class="transaction text-center btn btn-primary animate__animated animate__wobble"> back to accounts</a>
+        </main>
+        <footer>
+           <pre>{{originAccountData.data.balance}}</pre> 
+            <div>
+                <img id="imgFooter" class="animate__animated animate__bounce" src="./img/zyro-image.png" alt="">
+                <a href=""></a>
+                <h5 class="hechoPor">Hecho por Aaron Mujica</h5>
+                <h5 class="hechoPor">MindHub Modulo 3 task 2</h5>
+            </div>
+        </footer>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <script src="./scripts/transfers.js"></script>
+</body>
+
+</html>

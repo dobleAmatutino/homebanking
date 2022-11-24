@@ -1,0 +1,13 @@
+.cardFrontBack{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: solid;
+    border-color: blueviolet;
+    border-radius: 9px;
+    margin-top: 10px;
+    width: fit-content;
+    padding: 20px;
+}
+

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Alkalami&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/style2.css">
+    <title>Accounts</title>
+</head>
+
+<body>
+    <div id="app">
+        <header id="encabezadoLanding">
+            <img class="bankame animate__animated animate__bounce" src="./img/zyro-image-removebg-preview.png" alt="">
+            <a @click="logOut" type="button" href="./login.html"
+                class="transaction btn d-flex justify-content-center  btn-primary animate__animated animate__wobble">Logout<img class="icon animate__animated animate__bounce" src="./img/SESI-removebg-preview.png"
+                    alt=""></a>
+            <a type="button" href="./ayuda.html" class="transaction btn d-flex justify-content-center btn-primary animate__animated animate__wobble">help <img
+                    class="icon animate__animated animate__bounce" src="./img/ayuda-removebg-preview.png" alt=""></a>
+            <a type="button" href="./prestamos.html" class="transaction btn d-flex justify-content-center  btn-primary animate__animated animate__wobble">Loans <img class="icon animate__animated animate__bounce" src="./img/prES-removebg-preview.png"
+                    alt=""></a>
+            <a type="button" href="./seguridad.html"
+                class="transaction btn d-flex justify-content-center  btn-primary animate__animated animate__wobble">Segurity<img
+                    class="icon animate__animated animate__bounce" src="./img/seguridad-removebg-preview.png"
+                    alt=""></a>
+            <a type="button" href="./cards.html" class="transaction btn d-flex justify-content-center  btn-primary animate__animated animate__wobble">your cards<img class="icon animate__animated animate__bounce" src="./img/misTarjetas-removebg-preview.png"
+                    alt=""></a>
+            
+        </header>
+        <main>
+
+            <div class="animate__animated animate__bounce">
+                <h1 class="saludo">Hi {{client.firstName}} {{client.lastName}}</h1>
+                
+            </div>
+            
+            <a v-if="account.length<3"  type="button" @click.private="addNewAccount"
+                class="btn d-flex justify-content-center  btn-primary animate__animated animate__wobble">Create account
+            </a>
+            <div>
+                <h5 class="text-center" id="comentario"> you have {{account.length}} accounts </h5>
+            </div>
+            <h4>Accounts: </h4>
+            <h5>account state</h5>
+
+            <div class="cuentas2">
+                <div class="cuentaCorriente" v-for="cuenta in account">
+                    <div class="card text-center">
+                        <div class="transaction tarjeta card-header">
+                            {{cuenta.number}}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="transaction text-center card-title"><img class="dollar animate__animated animate__bounce"
+                                    src="./img/dinero-removebg-preview.png" alt="">{{modificarSaldo(cuenta.balance)}}
+                            </h5>
+                        </div>
+                        <p class="card-text">current account</p>
+                        <a :href="'http://localhost:8080/web/account.html?id='+cuenta.id"
+                            class="transaction btn d-flex justify-content-center  btn-primary">MOVEMENTS</a>
+                            <a :href="'http://localhost:8080/web/transfers.html?id='+cuenta.id"
+                            class="transaction btn d-flex justify-content-center  btn-primary">Transferens</a>
+                            <div class="card-footer text-center  text-muted">
+                                date of creation: {{cuenta.creationDate}}
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="cuentas2">
+                <div >
+                    <h1>Loans:</h1>
+                    
+                        <a v-if="loans.length<3" type="button" href="./loan-application.html"
+                        class="transaction btn d-flex justify-content-center  btn-primary animate__animated animate__wobble">
+                            Request a loan</a>
+                    
+                </div>
+                <div class="d-flex justify-content-center" v-if="loans.length>0">
+                    <div>
+                        <table class="table animate__animated animate__bouncec">
+                            <thead class="p-2">
+                                <tr>
+                                    
+                                    <th class="text-center border-0" scope="col">Amount</th>
+                                    <th class="text-center border-0" scope="col">loans</th>
+                                    <th class="text-center border-0" scope="col">loans type</th>
+                                </tr>
+                            </thead>
+                            <tbody class="p-2">
+                                <tr v-for="loan in loans" class="border-0">
+                                
+                                    <td class="text-center transaction border-0 text-warning">{{modificarSaldo(loan.amount)}}</td>
+                                    <td class="text-center transaction border-0 text-warning">{{loan.payments}}</td>
+                                    <td class="text-center transaction border-0 text-warning">{{loan.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="noHayPrestamos" v-else-if="loans.length==0">
+                    <img class="dineritoNoPrestado animate__animated animate__fadeInUp"
+                        src="./img/dinero-removebg-preview.png " alt="">
+                    <h1 id="subtituloPrestamo"> you haven't loans </h1>
+                    <img class="dineritoNoPrestado animate__animated animate__fadeInUp"
+                        src="./img/dinero-removebg-preview.png " alt="">
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div>
+                <div class="d-flex justify-content-center">
+                    <img id="imgFooter" class="animate__animated animate__bounce text-center" src="./img/zyro-image.png" alt="">
+                </div>
+                <a href=""></a>
+                <h5 class="hechoPor text-center">Made by Aaron Mujica</h5>
+                <h5 class="hechoPor text-center">MindHub module 3</h5>
+            </div>
+
+            <!-- <video autoplay loop>
+            <source type="video/mp4" src="./img/videoBackground.mp4">
+        </video>
+        <div class="capa"></div> -->
+        </footer>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./scripts/accounts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/style2.css">
+    <title>Account</title>
+</head>
+<body>
+<div id="app">
+    <header id="encabezadoLanding">
+        <img class="bankame animate__animated animate__bounce" src="./img/zyro-image-removebg-preview.png" alt=""></span>
+        <a type="button" href="./index.html" class="transaction btn btn-primary animate__animated animate__wobble">Cerrar
+            sesion<img class="icon animate__animated animate__bounce" src="./img/SESI-removebg-preview.png"
+                alt=""></a>
+        
+        <a type="button" href="./seguridad.html"
+            class="transaction btn btn-primary animate__animated animate__wobble">Seguridad<img
+                class="icon animate__animated animate__bounce" src="./img/seguridad-removebg-preview.png"
+                alt=""></a>
+        <a type="button" href="./cards.html"
+            class="transaction btn btn-primary animate__animated animate__wobble">Tus tarjetas<img
+                class="icon animate__animated animate__bounce" src="./img/misTarjetas-removebg-preview.png"
+                alt=""></a>
+    </header>
+    <main class="mainAccount">
+        <div>
+            <table class="table animate__animated animate__bouncec">
+                <thead>
+                    <tr>
+                        <th  class="transactionId text-center" scope="col">Id</th>
+                        <th class="text-center" scope="col">Transaction type</th>
+                        <th class="text-center" scope="col">Amount</th>
+                        <th class="transactionId text-center" scope="col">Concept</th>
+                        <th class="transactionId text-center" scope="col">Date</th>
+                        <th class="transactionId text-center" scope="col">Updated balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="transaccion in transaction">
+                        <td class="transactionId text-center text-secondary">{{transaccion.id}}</td>
+                        <td class="text-center text-secondary">{{transaccion.type}}</td>
+                        <td v-if="transaccion.type ==='DEBIT'" class="transaction text-center text-danger">{{modificarSaldo(transaccion.amount)}}</td>
+                        <td  v-else-if="transaccion.type === 'CREDIT'" class="transaction text-center text-success" >{{modificarSaldo(transaccion.amount)}}</td>
+                        <td  class="transaction transactionId text-center text-secondary" >{{transaccion.description}}</td>
+                        <td class="transactionId text-center">{{transaccion.date}}</td>
+                        <td class="transaction transactionId text-center text-primary">{{modificarSaldo(transaccion.balance)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tuDinerito">
+                <video class="videoDinerito" autoplay muted loop>
+                    <source src="./img/Tu dinerito.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <a type="button" href="./accounts.html" class="transaction btn text-center btn-primary animate__animated animate__wobble"> back to accounts</a>
+    </main>
+    <footer >
+        <div>
+            <img id="imgFooter"  class="animate__animated animate__bounce" src="./img/zyro-image.png" alt="">
+            <a href=""></a>
+            <h5 class="hechoPor">Hecho por Aaron Mujica</h5>
+            <h5 class="hechoPor">MindHub Modulo 3 task 2</h5>
+        </div>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+<script src="./scripts/account.js"></script>
+</body>
+</html>

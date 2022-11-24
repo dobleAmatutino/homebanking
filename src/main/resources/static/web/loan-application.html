@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Alkalami&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/style2.css">
+
+    <title>loan-application</title>
+</head>
+
+<body>
+    <div id="app">
+        <header id="encabezadoLanding">
+            <img class="bankame animate__animated animate__bounce"  src="./img/zyro-image-removebg-preview.png" alt="">
+
+            <a type="button" href="./ayuda.html" class="transaction btn btn-primary animate__animated animate__wobble">Ayuda <img
+                    class="icon animate__animated animate__bounce" src="./img/ayuda-removebg-preview.png" alt=""></a>
+            <a type="button" href="./prestamos.html" class="transaction btn btn-primary animate__animated animate__wobble">Nuestros
+                prestamos <img class="icon animate__animated animate__bounce" src="./img/prES-removebg-preview.png"
+                    alt=""></a>
+            <a type="button" href="./seguridad.html"
+                class="transaction btn btn-primary animate__animated animate__wobble">Seguridad<img
+                    class="icon animate__animated animate__bounce" src="./img/seguridad-removebg-preview.png"
+                    alt=""></a>
+            <a type="button" href="./cards.html" class="transaction btn btn-primary animate__animated animate__wobble">Tus
+                tarjetas<img class="icon animate__animated animate__bounce" src="./img/misTarjetas-removebg-preview.png"
+                    alt=""></a>
+        </header>
+        <main>
+            <div class="animate__animated animate__bounce">
+                <h1 class="saludo">ASK US FOR A LOAN</h1>
+            </div>
+            <div class="modal-container">
+
+                <div id="contenedorDeDrops">
+                    <div class="dropdown d-flex flex-column justify-content-center">
+                        <div class="div d-flex justify-content-center flex-column">
+                            <h3 class="cardOption">Loan type :</h3>
+                            <select v-model="loanId" class="transaction btn btn-secondary dropdown-toggle text-light  d-flex flex-column justify-content-center">
+                                <option v-for="loan in loans" class="transaction" :value="loan.id">{{loan.name}}</option>
+                            </select>
+                        </div>
+                        <div  class="div d-flex justify-content-center flex-column">
+                            <h3 class="cardOption">Account destiny :</h3>
+                            <select v-model="destinyAccount"  class="transaction btn btn-secondary dropdown-toggle text-light">
+                                <option v-for="account in accounts" class="transaction" :value="account.number">{{account.number}}</option>
+                            </select>
+                        </div>
+                        <div  class="div d-flex justify-content-center flex-column">
+                            <h3 class="cardOption">How much money do you need?</h3>
+                            <div v-if="loanId!=0" class="input-group mb-3">
+
+                                <span  class="transaction input-group-text">limit loan {{modificarSaldo(loans[loans.indexOf(loanId)].maxAmount)}}</span>
+                                
+                                <input v-model="amount"  type="number" class="transaction form-control bg-light" aria-label="Amount (to the nearest dollar)"
+                                    placeholder="0.00" >
+                                    {{alertAmount}}
+                                    {{interests}}
+                                   
+                            </div>
+                        </div>
+                        <div  class="div d-flex justify-content-center flex-column">
+                            <h3 class="cardOption">how many payments do you wish to do?</h3>
+                            <select v-if="loanId!=0" v-model="payments" class="transaction btn btn-secondary dropdown-toggle text-light">
+                                <option v-for="payments in loans[loans.indexOf(loanId)].payment" class="transaction" :value="payments">{{payments}}</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h3 class="cardOption">you should pay us {{modificarSaldo((amount/payments)+(amount*interests[loans.indexOf(loanId)]/payments))}}</h3>
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="buttonCreate">
+                <button @click="makeAtransaction" type="submit" class="transaction btn btn-primary animate__animated animate__wobble">
+                 DONE
+                </button>
+            </div>
+        </main>
+        <footer>
+            <div>
+                <img id="imgFooter" class="animate__animated animate__bounce" src="./img/zyro-image.png" alt="">
+                <a href=""></a>
+                <h5 class="hechoPor">Hecho por Aaron Mujica</h5>
+                <h5 class="hechoPor">MindHub Modulo 3 task 2</h5>
+            </div>
+        </footer>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <script src="./scripts/loan-application.js"></script>
+</body>
+
+</html>
